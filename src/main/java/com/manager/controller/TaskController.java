@@ -26,10 +26,11 @@ import static org.springframework.http.HttpStatus.CREATED;
 
 @SecurityRequirement(name = "Bearer Authentication")
 @ApiResponses(value = {
-        @ApiResponse(responseCode = "401", description = "Unauthorized", content = {
+        @ApiResponse(responseCode = "400", description = "Bad request", content = {
                 @Content(mediaType = "application/json",
                         schema = @Schema(implementation = ApiErrorResponse.class))
-        })
+        }),
+        @ApiResponse(responseCode = "401", description = "Unauthorized", content = @Content())
 })
 @RestController
 @RequestMapping("/api/v1/tasks")
@@ -43,8 +44,7 @@ public class TaskController {
                     @ApiResponse(responseCode = "201", description = "Task created", content =
                     @Content(mediaType = "application/json",
                             schema = @Schema(implementation = TaskResponse.class))
-                    ),
-                    @ApiResponse(responseCode = "400", description = "Bad request", content = @Content())
+                    )
             }
     )
     @ResponseStatus(CREATED)
@@ -62,7 +62,6 @@ public class TaskController {
                     @Content(mediaType = "application/json",
                             schema = @Schema(implementation = TaskResponse.class))
                     ),
-                    @ApiResponse(responseCode = "400", description = "Bad request", content = @Content()),
                     @ApiResponse(responseCode = "403", description = "Only the task author can edit it", content = @Content()),
                     @ApiResponse(responseCode = "404", description = "Task with this id is not found", content = @Content())
             }
@@ -84,7 +83,6 @@ public class TaskController {
                     @Content(mediaType = "application/json",
                             schema = @Schema(implementation = TaskResponse.class))
                     ),
-                    @ApiResponse(responseCode = "400", description = "Bad request", content = @Content()),
                     @ApiResponse(responseCode = "403", description = "Only the task author or executor can edit status", content = @Content()),
                     @ApiResponse(responseCode = "404", description = "Task with this id is not found", content = @Content())
             }
@@ -106,7 +104,6 @@ public class TaskController {
                     @Content(mediaType = "application/json",
                             schema = @Schema(implementation = TaskResponse.class))
                     ),
-                    @ApiResponse(responseCode = "400", description = "Bad request", content = @Content()),
                     @ApiResponse(responseCode = "403", description = "Only the author can edit the task executor", content = @Content()),
                     @ApiResponse(responseCode = "404", description = "Task with this id is not found", content = @Content())
             }
@@ -125,7 +122,6 @@ public class TaskController {
             description = "Only the author can delete task",
             responses = {
                     @ApiResponse(responseCode = "200", description = "Task deleted"),
-                    @ApiResponse(responseCode = "400", description = "Bad request", content = @Content()),
                     @ApiResponse(responseCode = "403", description = "Only the author can delete task", content = @Content()),
                     @ApiResponse(responseCode = "404", description = "Task with this id is not found", content = @Content())
             }
@@ -157,8 +153,7 @@ public class TaskController {
                     @ApiResponse(responseCode = "200", description = "Tasks returned", content =
                     @Content(mediaType = "application/json",
                             schema = @Schema(implementation = PageResponse.class))
-                    ),
-                    @ApiResponse(responseCode = "400", description = "Bad request", content = @Content())
+                    )
             }
     )
     @GetMapping
