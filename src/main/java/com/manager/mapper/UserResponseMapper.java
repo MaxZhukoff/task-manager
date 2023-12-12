@@ -10,6 +10,9 @@ import org.springframework.stereotype.Component;
 public class UserResponseMapper implements Mapper<User, UserResponse> {
     @Override
     public UserResponse map(User user) {
+        if (user == null) {
+            return null;
+        }
         return new UserResponse(
                 user.getUserId(),
                 user.getEmail()

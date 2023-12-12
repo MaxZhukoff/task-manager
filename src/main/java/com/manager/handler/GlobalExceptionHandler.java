@@ -2,6 +2,7 @@ package com.manager.handler;
 
 import com.manager.model.response.ApiErrorResponse;
 import org.springframework.context.MessageSourceResolvable;
+import org.springframework.data.mapping.PropertyReferenceException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -46,6 +47,16 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 ex.getClass().getSimpleName(),
                 ex.getMessage()
         ), ex.getStatusCode());
+    }
+
+    @ExceptionHandler(PropertyReferenceException.class)
+    public ResponseEntity<ApiErrorResponse> handleResponseStatusException(PropertyReferenceException ex) {
+        return new ResponseEntity<>(new ApiErrorResponse(
+                ex.getPropertyName(),
+                BAD_REQUEST.toString(),
+                ex.getClass().getSimpleName(),
+                ex.getMessage()
+        ), BAD_REQUEST);
     }
 
     @Override
