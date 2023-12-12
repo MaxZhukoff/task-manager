@@ -25,7 +25,7 @@ public class UserController {
 
     @Operation(
             summary = "Get current authorized user",
-            security = @SecurityRequirement(name = "bearerAuth"),
+            security = @SecurityRequirement(name = "Bearer Authentication"),
             responses = {
                     @ApiResponse(responseCode = "200", description = "OK", content =
                     @Content(mediaType = "application/json",
