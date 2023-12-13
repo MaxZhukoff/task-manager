@@ -32,7 +32,7 @@ public class CommentService {
                 .text(commentRequest.text())
                 .build();
 
-        commentRepository.save(comment);
+        comment = commentRepository.save(comment);
         return commentMapper.map(comment);
     }
 
